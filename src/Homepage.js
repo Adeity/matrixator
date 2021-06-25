@@ -6,18 +6,14 @@ import ResultSection from './components/Sections/ResultSection'
 import React, { useState } from 'react';
 
 function Homepage(props) {
-
-
-    useState()
-
     return (
         <div>
 
             <Header />
             <DefinitionSection
-                definedMatrices = {props.definedMatrices}
+                definedMatrices = {props.initialData.definedMatrices}
             />
-            <OperationsSection />
+            <OperationsSection initialData = {props.initialData} expressionText = {props.expressionText}/>
             <ResultSection />
             {/*<Footer />*/}
         </div>

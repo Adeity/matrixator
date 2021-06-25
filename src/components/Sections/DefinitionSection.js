@@ -30,6 +30,7 @@ function DefinitionSection(props){
 
     return(
         <div>
+            <h1>Define matrices</h1>
             {definitions}
             {addMatrixButton}
         </div>

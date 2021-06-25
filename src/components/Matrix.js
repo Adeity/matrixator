@@ -1,6 +1,8 @@
 import MatrixElementInput from './Fields/MatrixElementInput'
 
 function Matrix (props) {
+    let disabled = (props.disabled === true) ? "disabled" : "a";
+
     const elements = props.elements.map((row) =>
         <div>
             {

@@ -6,8 +6,10 @@ import {useState} from "react";
 const homepage = <Homepage />
 
 function App() {
+
   const initialTestDefinitions =
       {
+        "operations" : ["+", "-", "*", "-1", "det", "rank", "diag"],
         "definedMatrices":[
           {
             "id": 0,
@@ -15,8 +17,8 @@ function App() {
             "rowDimension":2,
             "columnDimension": 2,
             "matrixElements" : [
-                [0, 0], //  matrixElements[0] = [1, 0];  matrixElements[0] = [1, 0] + [0]
-                [0, 0]
+                [2, 3], //  matrixElements[0] = [1, 0];  matrixElements[0] = [1, 0] + [0]
+                ["a", 5]
             ]
           },
           {
@@ -32,6 +34,8 @@ function App() {
         ],
       };
 
+
+
   console.log(initialTestDefinitions)
   console.log(initialTestDefinitions.definedMatrices)
   console.log(initialTestDefinitions.definedMatrices[0])
@@ -39,14 +43,17 @@ function App() {
 
 
 
-  const [definedMatrices, setDefinedMatrices] = useState(initialTestDefinitions); //  defined matrices state
+  const [initialData, setDefinedMatrices] = useState(initialTestDefinitions); //  defined matrices state
+  const [expressionText, setExpressionText] = useState("A x B"); //  defined matrices state
+
   const [resultMatrix, setResultMatrix] = useState(null) //  result state
 
 
 
   return (
     <Homepage
-        definedMatrices = {definedMatrices.definedMatrices}
+        initialData = {initialData}
+        expressionText = {expressionText}
     />
   );
 };
