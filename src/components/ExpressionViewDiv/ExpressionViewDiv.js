@@ -1,5 +1,7 @@
 import Fieldset from "../Buttons/Fieldset";
 import {useState} from "react";
+import EqualsButton from "../Buttons/EqualsButton";
+import translateMatrixElementsToMathJax from '../../Utilities/Utilities'
 
 
 function ExpressionViewDiv(props) {
@@ -11,7 +13,7 @@ function ExpressionViewDiv(props) {
 
 
     function isOperation(o) {
-        const listOfOperations = ["+", "-"];
+        const listOfOperations = ["+", "-", "x"];
         if (listOfOperations.includes(o)) {
             return true
         }
@@ -38,15 +40,20 @@ function ExpressionViewDiv(props) {
         for (let i = 0; i < props.expressionText.length; i++) {
             const symbol = props.expressionText[i]
 
+            if (symbol === " ") {
+                continue
+            }
+
             console.log("Current symbol:" + symbol)
 
             if (isOperation(symbol)) {
                 console.log("Symbol is operation")
+                result += symbol
             } else {
                 let matrix = props.getMatrixByName(symbol)
                 if (matrix !== null) {
                     console.log("Matrix found")
-                    result += translateMatrixElementsToMathjax(matrix.matrixElements)
+                    result += translateMatrixElementsToMathJax(matrix.matrixElements)
                 }
                 else {
                     console.log("Matrix is null")
@@ -57,47 +64,13 @@ function ExpressionViewDiv(props) {
         return result;
     }
 
-    function translateMatrixElementsToMathjax(elements) {
-        var result = "$$\\begin{pmatrix}"
-        var i = 0;
-
-        console.log(elements)
-
-        elements.forEach((row) => {
-            var k = 0
-            row.forEach((element) => {
-                result += element
-                if (k !== row.length - 1) {
-                    result += "&"
-                }
-                k++;
-            })
-            if (i === elements.length - 1) {
-                result += "\\end{pmatrix}$$" //  \\\
-            }
-            else {
-                result += "\\\\" //  \\\
-            }
-            i++;
-        })
-        console.log(result)
-        return result;
-    }
-
-    //  &#123 = {
-    //  &#125 = }
-
     return (
         <div>
             <h2>Expression view</h2>
             <Fieldset>
-                $$\begin&#123;pmatrix&#125;a & b & d\\\ c & d & f \\\ y & x & c \end&#123;pmatrix&#125;$$
-
-
-                +
-                $$\begin&#123;pmatrix&#125;a & b & d\\\ c & d & f \\\ y & x & c \end&#123;pmatrix&#125;$$
                 {toView()}
             </Fieldset>
+            <EqualsButton/>
         </div>
     )
 }

@@ -46,7 +46,15 @@ function App() {
   const [initialData, setDefinedMatrices] = useState(initialTestDefinitions); //  defined matrices state
   const [expressionText, setExpressionText] = useState("A x B"); //  defined matrices state
 
-  const [resultMatrix, setResultMatrix] = useState(null) //  result state
+
+  const foo = [
+      [1, 2, 3],
+      [0, 2, 3]
+  ]
+
+  const bar = 3
+  const foobar = "not possible"
+  const [resultMatrix, setResultMatrix] = useState(foobar) //  result state
 
 
 
@@ -54,6 +62,7 @@ function App() {
     <Homepage
         initialData = {initialData}
         expressionText = {expressionText}
+        resultMatrix = {resultMatrix}
     />
   );
 };

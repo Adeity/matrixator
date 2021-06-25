@@ -52,7 +52,9 @@ function OperationsSection(props){
            <DefinedMatricesDiv namesOfMatrices = {getNameOfMatrices()}/>
            <OperationsDiv listOfOperations = {props.initialData.operations} />
            <ExpressionTextDiv expressionText={props.expressionText}/>
-           <ExpressionViewDiv expressionText = {props.expressionText} getMatrixByName = {getMatrixByName}/>
+           <ExpressionViewDiv expressionText = {props.expressionText}
+                              getMatrixByName = {getMatrixByName}
+           />
        </div>
     );
 
