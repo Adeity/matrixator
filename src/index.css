@@ -11,3 +11,17 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.plus-button {
+  color: green;
+}
+
+.border {
+  padding: 1rem;
+  /*margin: 1rem;*/
+  border: 1px solid black;
+}
+
+mjx-container[jax="CHTML"][display="true"] {
+  display: inline-block!important;
+}
