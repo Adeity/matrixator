@@ -14,7 +14,9 @@ function Homepage(props) {
         <div>
 
             <Header />
-            <DefinitionSection definedMatrices = {props.definedMatrices} setDefinedMatrices = {props.setDefinedMatrices} />
+            <DefinitionSection
+                definedMatrices = {props.definedMatrices}
+            />
             <OperationsSection />
             <ResultSection />
             {/*<Footer />*/}

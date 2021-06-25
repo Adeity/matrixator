@@ -4,19 +4,14 @@ import Matrix from './Matrix'
 import DimensionSettings from './DimensionSettings'
 
 function SingleMatrixDefinition(props){
-
-    const name = props.matrix[0];
-
     return(
         <div>
-            <MatrixNameTextArea name={name} />
-            {/*<Matrix />*/}
-            <DeleteMatrixButton />
-            {/*<DimensionSettings />*/}
-
+            {props.matrixName}
+            {props.deleteMatrixButton}
+            {props.matrix}
+            {props.dimensionSettings}
         </div>
     )
-
 }
 
 export default SingleMatrixDefinition;

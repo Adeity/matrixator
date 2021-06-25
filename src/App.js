@@ -6,30 +6,48 @@ import {useState} from "react";
 const homepage = <Homepage />
 
 function App() {
-  const initialTestDefinitions = [
-    [
-      "A",
-      "3",
-      "3",
-      [1, 2, 3],
-      [1, 2, 3],
-      [1, 2, 3]
-    ],
-    [
-      "B",
-      "3",
-      "3",
-      [1, 2, 3],
-      [1, 2, 3],
-      [1, 2, 3]
-    ]
-  ];
+  const initialTestDefinitions =
+      {
+        "definedMatrices":[
+          {
+            "id": 0,
+            "name":"A",
+            "rowDimension":2,
+            "columnDimension": 2,
+            "matrixElements" : [
+                [0, 0], //  matrixElements[0] = [1, 0];  matrixElements[0] = [1, 0] + [0]
+                [0, 0]
+            ]
+          },
+          {
+            "id": 0,
+            "name":"B",
+            "rowDimension":2,
+            "columnDimension": 2,
+            "matrixElements" : [
+              [0, 0], //  matrixElements[0] = [1, 0];  matrixElements[0] = [1, 0] + [0]
+              [0, 0]
+            ]
+          }
+        ],
+      };
 
-  const [definedMatrices, setDefinedMatrices] = useState(initialTestDefinitions);
+  console.log(initialTestDefinitions)
+  console.log(initialTestDefinitions.definedMatrices)
+  console.log(initialTestDefinitions.definedMatrices[0])
+  console.log(initialTestDefinitions.definedMatrices[1].name)
+
+
+
+  const [definedMatrices, setDefinedMatrices] = useState(initialTestDefinitions); //  defined matrices state
+  const [resultMatrix, setResultMatrix] = useState(null) //  result state
+
 
 
   return (
-    <Homepage definedMatrices = {definedMatrices} setDefinedMatrices = {setDefinedMatrices}/>
+    <Homepage
+        definedMatrices = {definedMatrices.definedMatrices}
+    />
   );
 };
 
