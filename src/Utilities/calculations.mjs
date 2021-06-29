@@ -1,4 +1,4 @@
-import {DeterminantError, AdditionError, SubtractionError, MatrixMultiplicationError, NonInvertibleMatrixError, DimensionError} from './errors'
+import {DeterminantError, AdditionError, SubtractionError, MatrixMultiplicationError, NonInvertibleMatrixError, DimensionError} from './errors.mjs'
 
 function haveSameDimensions(elements1, elements2) {
     let numOfRows1 = elements1.size
@@ -350,3 +350,5 @@ function inverse(elements) {
 }
 
 export {add, subtract, multiplyMatrices, inverse, calculateDeterminant}
+
+export default add
