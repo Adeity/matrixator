@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import Homepage from "./Homepage";
 import {useState} from "react";
-import {add} from './Utilities/calculations'
+import {add} from './Utilities/calculations.mjs'
 
 const homepage = <Homepage />
 
