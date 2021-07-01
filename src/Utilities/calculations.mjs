@@ -12,6 +12,129 @@ function haveSameDimensions(elements1, elements2) {
         (numOfCols1 === numOfCols2)
 }
 
+function sortStringAlphabetically(str){
+    var arr = str.split('');
+    var tmp;
+    for(var i = 0; i < arr.length; i++){
+        for(var j = i + 1; j < arr.length; j++){
+            /* if ASCII code greater then swap the elements position*/
+            if(arr[i] > arr[j]){
+                tmp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = tmp;
+            }
+        }
+    }
+    return arr.join('');
+}
+
+function multiplyNumbersInsideArray(arr) {
+    let res = 1
+    for (let i = 0; i < arr.length; i++) {
+        res *= parseInt(arr[i])
+    }
+    return res
+}
+
+function isNumeric(x) {
+    if (isNaN(x)) {
+        return false;
+    }
+    return true;
+}
+
+function divideVariablesAndCoefficient(textElement){
+    let coefficients = []
+    let variables = ""
+    // console.log("textElement size:")
+    // console.log(textElement.size)
+    // console.log("textElement length:")
+    // console.log(textElement.length)
+    for (let i = 0; i < textElement.length; i++){
+        let currentCoefficient = ""
+
+        let isNum = isNumeric(textElement[i])
+        console.log("Now looking at:")
+        console.log(textElement[i])
+        while(isNum) {
+            console.log("Character is integer")
+
+            currentCoefficient += textElement[i]
+
+            console.log("Current Coefficient:")
+            console.log(currentCoefficient)
+
+            if(i + 1 !== textElement.size && !isNumeric(textElement[i+1])) {
+                coefficients.push(currentCoefficient)
+                break
+            }
+            i++
+        }
+
+        if (!isNum) { // if wasnt inside while loop
+            console.log("Is not numeric")
+            variables += textElement[i]
+        }
+    };
+
+    variables = sortStringAlphabetically(variables)
+
+    console.log("Coefficients array:")
+    console.log(coefficients)
+
+    let resCoef = multiplyNumbersInsideArray(coefficients)
+
+    console.log("Result coefficient: " + resCoef)
+
+    return [resCoef, variables]
+
+}
+
+function parseToString(textElement1, textElement2, operand) {
+    let resultTextElement;
+    if (typeof textElement1 === "string" && typeof textElement2 === "string" ) {
+        console.log("Both elements are type of string.")
+        // 2 ... coefficient
+        // a ... variable/
+        // do both strings have the same variable?
+        let element1Divided1 = divideVariablesAndCoefficient(textElement1)
+
+        let coefficient1 = element1Divided1[0]
+        let variable1 = element1Divided1[1]
+
+        console.log("Coeficient1: " + coefficient1)
+        console.log("variable1: " + variable1)
+
+
+
+        let element1Divided2 = divideVariablesAndCoefficient(textElement2)
+
+        let variable2 = element1Divided2[1]
+        let coefficient2 = element1Divided2[0]
+
+        console.log("Coeficient2: " + coefficient2)
+        console.log("variable2: " + variable2)
+
+
+
+        console.log("Variable1: " + variable1 + " variable2: " +  variable2)
+        if (variable1 === variable2){
+            let resCoef = coefficient1 + coefficient2
+            resultTextElement = resCoef + variable1
+
+        }
+        else {
+            resultTextElement = textElement1 + " " + operand + " " + textElement2
+        }
+    }
+    else {
+        console.log("Only one element is typeof string")
+        resultTextElement = textElement1 + " " + operand + " " + textElement2
+    }
+    return resultTextElement
+
+}
+
 function add(elements1, elements2) {
     if(!haveSameDimensions(elements1, elements2)) {
         throw new DimensionError("Matrices have different dimensions.");
@@ -23,7 +146,19 @@ function add(elements1, elements2) {
     resultElements = elements1.map(function(item, i, array) {
         console.log(item, i)
         row = elements1[i].map(function(item, k) {
-            return elements1[i][k] + elements2[i][k]
+            if (typeof elements1[i][k] === "string" || typeof elements2[i][k] === "string") {
+                console.log("Element1: ")
+                console.log(elements1[i][k])
+                console.log("Element2: ")
+                console.log(elements2[i][k])
+                let res = parseToString(elements1[i][k], elements2[i][k], "+")
+                console.log("Res:")
+                console.log(res)
+                return res
+            }
+            else{
+                return elements1[i][k] + elements2[i][k]
+            }
         })
         return row
     })
