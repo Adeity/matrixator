@@ -6,8 +6,8 @@ function Matrix (props) {
     const elements = props.elements.map((row) =>
         <div>
             {
-                row.map((element) =>
-                    <input value={element}>
+                row.map((element, index) =>
+                    <input key = {index} defaultValue={element}>
                     </input>
                 )
             }

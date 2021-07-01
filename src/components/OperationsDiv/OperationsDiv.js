@@ -3,7 +3,7 @@ import Button from "../Buttons/Button";
 
 function OperationsDiv(props) {
     const buttons = props.listOfOperations.map((operation) =>
-        <Button value = {operation}/>
+        <Button key = {operation+"Button"}value = {operation}/>
     );
 
     return (
@@ -14,6 +14,6 @@ function OperationsDiv(props) {
             </Fieldset>
         </div>
     )
-}
+};
 
 export default OperationsDiv

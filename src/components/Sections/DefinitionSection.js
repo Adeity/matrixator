@@ -10,18 +10,18 @@ function DefinitionSection(props){
 
     const inputDefinitions = props.definedMatrices;
     const definitions = inputDefinitions.map((matrix, index) =>
-        <SingleMatrixDefinition
+        <SingleMatrixDefinition key = {"smd"+index}
             matrixName = {
-                <MatrixNameTextArea name = {matrix.name} id = {matrix.id} />
+                <MatrixNameTextArea key = {"mnta"+index} name = {matrix.name} id = {matrix.id} />
             }
             matrix={
-                <Matrix elements = {matrix.matrixElements} id = {matrix.id} />
+                <Matrix key = {"m"+index} elements = {matrix.matrixElements} id = {matrix.id} />
             }
             dimensionSettings={
-                <DimensionSettings rowDimension = {matrix.rowDimension} columnDimension = {matrix.columnDimension} id = {matrix.id}/>
+                <DimensionSettings key = {"ds"+index} rowDimension = {matrix.rowDimension} columnDimension = {matrix.columnDimension} id = {matrix.id}/>
             }
             deleteMatrixButton = {
-                <DeleteMatrixButton id = {matrix.id}/>
+                <DeleteMatrixButton key = {"dmb"+index} id = {matrix.id}/>
             }
         />
     );
@@ -35,7 +35,6 @@ function DefinitionSection(props){
             {addMatrixButton}
         </div>
     )
-
-}
+};
 
 export default DefinitionSection;
