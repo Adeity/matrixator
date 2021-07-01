@@ -37,10 +37,8 @@ function multiplyNumbersInsideArray(arr) {
 }
 
 function isNumeric(x) {
-    if (isNaN(x)) {
-        return false;
-    }
-    return true;
+    let numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    return numbers.includes(x)
 }
 
 function divideVariablesAndCoefficient(textElement){
@@ -54,9 +52,15 @@ function divideVariablesAndCoefficient(textElement){
         let currentCoefficient = ""
 
         let isNum = isNumeric(textElement[i])
+
+        console.log("Numeric var: ")
+        console.log(isNum)
+
         console.log("Now looking at:")
         console.log(textElement[i])
         while(isNum) {
+            console.log("Current i index: " + i)
+            console.log("Current char: " + textElement[i])
             console.log("Character is integer")
 
             currentCoefficient += textElement[i]
@@ -64,16 +68,31 @@ function divideVariablesAndCoefficient(textElement){
             console.log("Current Coefficient:")
             console.log(currentCoefficient)
 
-            if(i + 1 !== textElement.size && !isNumeric(textElement[i+1])) {
+
+
+            if (i + 1 === textElement.length) {
+                break
+            }
+
+            let isNum = isNumeric(textElement[i+1])
+
+            if(!isNum) {
+                console.log("Next char is not numeric.")
                 coefficients.push(currentCoefficient)
                 break
             }
-            i++
+            else {
+                console.log("Next char is also numeric, incrementing i index")
+                i++
+            }
         }
 
         if (!isNum) { // if wasnt inside while loop
             console.log("Is not numeric")
-            variables += textElement[i]
+            //  todo: allow characters and ',' and '.'. Also check for expressions such as '3.2.4'
+            if (textElement[i] !== " ") {
+                variables += textElement[i]
+            }
         }
     };
 
@@ -90,6 +109,17 @@ function divideVariablesAndCoefficient(textElement){
 
 }
 
+function parseSingleElementToString(textElement) {
+    //  3  a = 3a
+    //  3ab dsad s = 3aabdds
+    //  2a + 2a =
+    let element1Divided1 = divideVariablesAndCoefficient(textElement)
+
+    let coefficient1 = element1Divided1[0]
+    let variable1 = element1Divided1[1]
+
+    return coefficient1 + variable1
+}
 function parseToString(textElement1, textElement2, operand) {
     let resultTextElement;
     if (typeof textElement1 === "string" && typeof textElement2 === "string" ) {
@@ -151,6 +181,9 @@ function add(elements1, elements2) {
                 console.log(elements1[i][k])
                 console.log("Element2: ")
                 console.log(elements2[i][k])
+
+                // if (isSimple())
+
                 let res = parseToString(elements1[i][k], elements2[i][k], "+")
                 console.log("Res:")
                 console.log(res)
@@ -484,6 +517,6 @@ function inverse(elements) {
     return inverse;
 }
 
-export {add, subtract, multiplyMatrices, inverse, calculateDeterminant}
+export {add, subtract, multiplyMatrices, inverse, calculateDeterminant, parseSingleElementToString}
 
 export default add
