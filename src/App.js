@@ -2,6 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import Homepage from "./Homepage";
 import {useState} from "react";
+import {add} from './Utilities/calculations.mjs'
 
 const homepage = <Homepage />
 
@@ -18,7 +19,7 @@ function App() {
             "columnDimension": 2,
             "matrixElements" : [
                 [2, 3], //  matrixElements[0] = [1, 0];  matrixElements[0] = [1, 0] + [0]
-                ["a", 5]
+                [1, 5]
             ]
           },
           {
@@ -52,11 +53,24 @@ function App() {
       [0, 2, 3]
   ]
 
+  const foofoo = add(initialData.definedMatrices[0].matrixElements, initialData.definedMatrices[1].matrixElements)
+
+  console.log(foofoo)
+
   const bar = 3
   const foobar = "not possible"
-  const [resultMatrix, setResultMatrix] = useState(foobar) //  result state
+  const [resultMatrix, setResultMatrix] = useState(foofoo) //  result state
+
+  function calculateExpression () {
 
 
+  }
+
+  /**
+   * A + B * C = (A+B) * C
+   * A + BC = A + (B * C)
+   *
+   */
 
   return (
     <Homepage
