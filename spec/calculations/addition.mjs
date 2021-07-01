@@ -92,4 +92,20 @@ describe("Addition", function() {
 
         expect(actualResult).toEqual(expectedResult);
     });
+
+    it("where an element is '2 a' added to element '3a' should return '5a' in given result element.", function () {
+        console.log("AAAAAAAAAAAAAAAAAAAAAAAAAa----------------------------------------------")
+        let elements1 = [["2   a b", 2],[1, 2]]
+        let elements2 = [["3ab", 3], [2, 3]]
+
+        let actualResult = add(elements1, elements2)
+
+        let expectedResult = [
+            ["5ab", 5],
+            [3, 5]
+        ]
+        console.log("AAAAAAAAAAAAAAAAAAAAAAAAAa----------------------------------------------")
+
+        expect(actualResult).toEqual(expectedResult);
+    });
 });
