@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import Homepage from "./Homepage";
 import {useState} from "react";
-import {add} from './Utilities/calculations.mjs'
+import calculations from './Utilities/calculations.js'
 
 const homepage = <Homepage />
 
@@ -52,6 +52,8 @@ function App() {
       [1, 2, 3],
       [0, 2, 3]
   ]
+
+  const {add} = calculations
 
   const foofoo = add(initialData.definedMatrices[0].matrixElements, initialData.definedMatrices[1].matrixElements)
 

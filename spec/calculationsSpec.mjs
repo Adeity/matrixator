@@ -1,4 +1,4 @@
-import {add, subtract} from '../src/Utilities/calculations.mjs'
+import {add, subtract} from '../src/Utilities/calculations.js'
 import {DimensionError} from "../src/Utilities/errors.mjs";
 
 describe("Calculation operation", function() {

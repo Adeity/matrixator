@@ -1,7 +1,8 @@
-import {add, subtract} from '../../src/Utilities/calculations.mjs'
-import {DimensionError} from "../../src/Utilities/errors.mjs";
+import calculations from '../../src/Utilities/calculations.js'
 
 describe("Addition", function() {
+
+    const {add} = calculations;
 
     it("where an element is '2a' added to element '1' should return '2a + 1' in given result element.", function () {
         let elements1 = [["2a", 2],[1, 2]]

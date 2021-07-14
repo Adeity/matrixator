@@ -1,4 +1,23 @@
-import {DeterminantError, AdditionError, SubtractionError, MatrixMultiplicationError, NonInvertibleMatrixError, DimensionError} from './errors.mjs'
+import {DimensionError, MatrixMultiplicationError, NonInvertibleMatrixError} from './errors.mjs'
+import {all} from 'mathjs'
+import {create} from 'mathjs'
+// import {math} from 'mathjs'
+
+
+function calculateExpression(exprText) {
+    // const {create} = require('mathjs')
+    // const {all} = require('mathjs')
+
+
+
+    const config = { }
+    const math = create(all, config)
+
+    const trimmedExpr = exprText.replace(/\s/g, '');
+
+    const f = math.parse(trimmedExpr)
+    return math.simplify(f)
+}
 
 function haveSameDimensions(elements1, elements2) {
     let numOfRows1 = elements1.size
@@ -120,56 +139,18 @@ function parseSingleElementToString(textElement) {
 
     return coefficient1 + variable1
 }
-function parseToString(textElement1, textElement2, operand) {
-    let resultTextElement;
-    if (typeof textElement1 === "string" && typeof textElement2 === "string" ) {
-        console.log("Both elements are type of string.")
-        // 2 ... coefficient
-        // a ... variable/
-        // do both strings have the same variable?
-        let element1Divided1 = divideVariablesAndCoefficient(textElement1)
-
-        let coefficient1 = element1Divided1[0]
-        let variable1 = element1Divided1[1]
-
-        console.log("Coeficient1: " + coefficient1)
-        console.log("variable1: " + variable1)
 
 
 
-        let element1Divided2 = divideVariablesAndCoefficient(textElement2)
 
-        let variable2 = element1Divided2[1]
-        let coefficient2 = element1Divided2[0]
-
-        console.log("Coeficient2: " + coefficient2)
-        console.log("variable2: " + variable2)
-
-
-
-        console.log("Variable1: " + variable1 + " variable2: " +  variable2)
-        if (variable1 === variable2){
-            let resCoef = coefficient1 + coefficient2
-            resultTextElement = resCoef + variable1
-
-        }
-        else {
-            resultTextElement = textElement1 + " " + operand + " " + textElement2
-        }
-    }
-    else {
-        console.log("Only one element is typeof string")
-        resultTextElement = textElement1 + " " + operand + " " + textElement2
-    }
-    return resultTextElement
-
-}
-
-function add(elements1, elements2) {
-    if(!haveSameDimensions(elements1, elements2)) {
-        throw new DimensionError("Matrices have different dimensions.");
-    }
-
+/**
+ * Gets called when need to parse expression of either plus or minus
+ * @param elements1 are elements of matrix
+ * @param elements2 are elements of other matrix
+ * @param operand is either + or -
+ * @return {*|[]}
+ */
+function additionSubtraction (elements1, elements2, operand) {
     let resultElements = []
     let row;
 
@@ -177,17 +158,9 @@ function add(elements1, elements2) {
         console.log(item, i)
         row = elements1[i].map(function(item, k) {
             if (typeof elements1[i][k] === "string" || typeof elements2[i][k] === "string") {
-                console.log("Element1: ")
-                console.log(elements1[i][k])
-                console.log("Element2: ")
-                console.log(elements2[i][k])
-
-                // if (isSimple())
-
-                let res = parseToString(elements1[i][k], elements2[i][k], "+")
-                console.log("Res:")
-                console.log(res)
-                return res
+                return calculateExpression(
+                    elements1[i][k] + operand + elements2[i][k]
+                )
             }
             else{
                 return elements1[i][k] + elements2[i][k]
@@ -199,23 +172,20 @@ function add(elements1, elements2) {
     return resultElements
 }
 
-function subtract(elements1, elements2) {
-    let resultElements = []
-    let row;
-
+function add(elements1, elements2) {
     if(!haveSameDimensions(elements1, elements2)) {
         throw new DimensionError("Matrices have different dimensions.");
     }
 
-    resultElements = elements1.map(function(item, i, array) {
-        console.log(item, i)
-        row = elements1[i].map(function(item, k) {
-            return elements1[i][k] - elements2[i][k]
-        })
-        return row
-    })
+    return additionSubtraction(elements1, elements2, "+")
+}
 
-    return resultElements
+function subtract(elements1, elements2) {
+    if(!haveSameDimensions(elements1, elements2)) {
+        throw new DimensionError("Matrices have different dimensions.");
+    }
+
+    return additionSubtraction(elements1, elements2, "-")
 }
 
 
@@ -224,24 +194,37 @@ function canMultiply(matrix1ColumnDimension, matrix2RowDimension) {
 }
 
 //  2, 3  3, 4
-function multiplyMatrices(elements1, elements2)
-{
+function multiplyMatrices(elements1, elements2) {
     let i, j, k;
 
-    let rows = elements1.size, columns = elements2[0].size
-    let elements1Cols = elements1[0].size;
+    let rows = elements1.length, columns = elements2[0].length
 
-    if(!canMultiply(elements1Cols, elements2.size)) {
+
+    let elements1Cols = elements1[0].length;
+
+    console.log("Rows: " + rows + " columns: " + columns)
+
+    if(!canMultiply(elements1Cols, elements2.length)) {
         throw new MatrixMultiplicationError("Cannot multiply dimension. Column dimension of left matrix must be equal to row dimension of right matrix. Current dimension: col1: " + elements1Cols + ", " + elements2.size)
     }
 
     let resultElements = getEmptyMatrixWithDimension(rows, columns)
 
+    let expr;
+
     for (i = 0; i < rows; i++) {
+        console.log("inside rows")
         for (j = 0; j < columns; j++) {
-            resultElements[i][j] = 0;
-            for (k = 0; k < elements1Cols; k++)
-                resultElements[i][j] += elements1[i][k] * elements2[k][j];
+            expr = ""
+
+            for (k = 0; k < elements1Cols; k++) {
+                if (k>0) {
+                    expr = expr + "+" + (elements1[i][k] +"*"+ elements2[k][j]);
+                } else {
+                    expr = (elements1[i][k] +"*"+ elements2[k][j])
+                }
+            }
+            resultElements[i][j] = calculateExpression(expr)
         }
     }
 
@@ -275,10 +258,15 @@ function isMatrixSquare(elements) {
  * @param column is column dimension of new matrix
  */
 function getEmptyMatrixWithDimension(row, column) {
-    let resultElements = new Array(row)
+    let resultElements = new Array(row).fill(0)
+    console.log("resultElements: ")
+    console.log(resultElements)
     for (let l = 0; l < row; l++) {
-        resultElements[l].push(new Array(column))
+        console.log("l = " + l)
+        console.log()
+        resultElements[l] = (new Array(column))
     }
+    return resultElements
 }
 
 /**
@@ -517,6 +505,6 @@ function inverse(elements) {
     return inverse;
 }
 
-export {add, subtract, multiplyMatrices, inverse, calculateDeterminant, parseSingleElementToString}
 
-export default add
+const calculations =  {add, subtract, multiplyMatrices, inverse, calculateDeterminant, parseSingleElementToString}
+export default calculations
