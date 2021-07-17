@@ -10,12 +10,11 @@ function App() {
 
   const initialTestDefinitions =
       {
-        "operations" : ["+", "-", "*", "-1", "det", "rank", "diag"],
         "definedMatrices":[
           {
             "id": 0,
             "name":"A",
-            "rowDimension":2,
+            "rowDimension": 2,
             "columnDimension": 2,
             "matrixElements" : [
                 [2, 3], //  matrixElements[0] = [1, 0];  matrixElements[0] = [1, 0] + [0]
@@ -28,45 +27,39 @@ function App() {
             "rowDimension":2,
             "columnDimension": 2,
             "matrixElements" : [
-              [0, 0], //  matrixElements[0] = [1, 0];  matrixElements[0] = [1, 0] + [0]
-              [0, 0]
+              [5, 5], //  matrixElements[0] = [1, 0];  matrixElements[0] = [1, 0] + [0]
+              [5, 5]
             ]
           }
         ],
       };
 
-
-
-  console.log(initialTestDefinitions)
-  console.log(initialTestDefinitions.definedMatrices)
-  console.log(initialTestDefinitions.definedMatrices[0])
-  console.log(initialTestDefinitions.definedMatrices[1].name)
-
-
-
   const [initialData, setDefinedMatrices] = useState(initialTestDefinitions); //  defined matrices state
   const [expressionText, setExpressionText] = useState("A x B"); //  defined matrices state
+  const [resultMatrix, setResultMatrix] = useState([[1, 2],[1, 2]]) //  result state
 
-
-  const foo = [
-      [1, 2, 3],
-      [0, 2, 3]
-  ]
 
   const {add} = calculations
+  const {subtract} = calculations
+  const {multiplyMatrices} = calculations
 
-  const foofoo = add(initialData.definedMatrices[0].matrixElements, initialData.definedMatrices[1].matrixElements)
-
-  console.log(foofoo)
-
-  const bar = 3
-  const foobar = "not possible"
-  const [resultMatrix, setResultMatrix] = useState(foofoo) //  result state
-
-  function calculateExpression () {
-
-
+  const addition = function () {
+    let resMatrix = add(initialData.definedMatrices[0].matrixElements, initialData.definedMatrices[1].matrixElements)
+    setResultMatrix(resMatrix)
   }
+
+  const subtraction = function () {
+    let resMatrix = subtract(initialData.definedMatrices[0].matrixElements, initialData.definedMatrices[1].matrixElements)
+    setResultMatrix(resMatrix)
+  }
+
+  const multiplication = function () {
+    let resMatrix = multiplyMatrices(initialData.definedMatrices[0].matrixElements, initialData.definedMatrices[1].matrixElements)
+    setResultMatrix(resMatrix)
+  }
+
+
+  const calculationsList = {addition, subtraction, multiplication}
 
   /**
    * A + B * C = (A+B) * C
@@ -79,10 +72,9 @@ function App() {
         initialData = {initialData}
         expressionText = {expressionText}
         resultMatrix = {resultMatrix}
+        calculations = {calculationsList}
     />
   );
 };
-
-
 
 export default App;

@@ -7,7 +7,7 @@ function Button (props) {
     const val = props.value
 
     return (
-        <button value={val}>{val}</button>
+        <button className={"btn btn-primary " + props.isDisabled} value={val} onClick={() => props.handleClick()}>{val}</button>
     )
 }
 

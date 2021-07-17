@@ -1,7 +1,7 @@
 
 function DeleteMatrixButton(){
     return(
-        <button>
+        <button className={"delete-matrix-button"}>
             -
         </button>
     )

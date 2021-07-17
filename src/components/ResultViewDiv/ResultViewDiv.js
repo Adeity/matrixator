@@ -3,8 +3,8 @@ import Fieldset from "../Buttons/Fieldset";
 import translateMatrixElementsToMathJax from '../../Utilities/Utilities'
 
 function ResultViewDiv(props) {
-    function toView () {
-        const result = props.resultMatrix
+    function toView (resultMatrix) {
+        const result = resultMatrix
 
         if (typeof result === 'number') {
             return result;
@@ -20,10 +20,10 @@ function ResultViewDiv(props) {
 
 
     return (
-        <div>
+        <div className={"result-view-div"}>
             <h2>Result</h2>
             <Fieldset>
-                {toView()}
+                {toView(props.resultMatrix)}
             </Fieldset>
             <SaveMatrixButton />
         </div>

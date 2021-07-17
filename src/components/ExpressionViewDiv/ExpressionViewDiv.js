@@ -65,7 +65,7 @@ function ExpressionViewDiv(props) {
     }
 
     return (
-        <div>
+        <div className={"expression-view-div"}>
             <h2>Expression view</h2>
             <Fieldset>
                 {toView()}

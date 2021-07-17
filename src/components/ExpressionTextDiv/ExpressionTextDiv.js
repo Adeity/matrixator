@@ -3,7 +3,7 @@ import BackspaceButton from "../Buttons/BackspaceButton";
 
 function ExpressionTextDiv(props) {
     return (
-        <div>
+        <div className={"expression-text-div"}>
             <h2>Expression</h2>
             <Fieldset>
                 <span>{props.expressionText}</span>

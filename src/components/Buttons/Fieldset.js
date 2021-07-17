@@ -1,6 +1,6 @@
 function Fieldset(props) {
     return (
-        <span className={"border"}>
+        <span className={"border fieldset"}>
             {props.children}
         </span>
     )

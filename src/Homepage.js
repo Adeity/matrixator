@@ -12,11 +12,13 @@ function Homepage(props) {
             <Header />
             <DefinitionSection
                 definedMatrices = {props.initialData.definedMatrices}
+                calculations = {props.calculations}
             />
-            <OperationsSection
-                initialData = {props.initialData}
-                expressionText = {props.expressionText}
-            />
+            {/*<OperationsSection*/}
+            {/*    initialData = {props.initialData}*/}
+            {/*    expressionText = {props.expressionText}*/}
+            {/*    calculations = {props.calculations}*/}
+            {/*/>*/}
             <ResultSection resultMatrix = {props.resultMatrix}
             />
             {/*<Footer />*/}

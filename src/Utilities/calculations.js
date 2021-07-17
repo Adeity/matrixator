@@ -3,13 +3,11 @@ import {all} from 'mathjs'
 import {create} from 'mathjs'
 // import {math} from 'mathjs'
 
-
+// 2a * 3b + 4a * 4
+// 2  a + 2a
+// 2a + 2b
+// simplify -> 2 * (a + b)
 function calculateExpression(exprText) {
-    // const {create} = require('mathjs')
-    // const {all} = require('mathjs')
-
-
-
     const config = { }
     const math = create(all, config)
 
@@ -163,7 +161,10 @@ function additionSubtraction (elements1, elements2, operand) {
                 )
             }
             else{
-                return elements1[i][k] + elements2[i][k]
+                if (operand === "+")
+                    return elements1[i][k] + elements2[i][k]
+                else if (operand === "-")
+                    return elements1[i][k] - elements2[i][k]
             }
         })
         return row

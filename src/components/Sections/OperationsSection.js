@@ -3,8 +3,6 @@ import OperationsDiv from '../OperationsDiv/OperationsDiv'
 import ExpressionTextDiv from '../ExpressionTextDiv/ExpressionTextDiv'
 import ExpressionViewDiv from '../ExpressionViewDiv/ExpressionViewDiv'
 
-
-
 function OperationsSection(props){
     const getNameOfMatrices = () => {
         var listOfNames = []
@@ -19,7 +17,6 @@ function OperationsSection(props){
 
     const getViewOfExpression = () => {
         const expression = props.expressionText //  A x B + C + det(A)
-
     }
 
     function getMatrixByName(nameOfMatrix){
@@ -47,10 +44,10 @@ function OperationsSection(props){
     }
 
     return(
-       <div>
+       <div className={"operations-section"}>
            <h1>Operations</h1>
            <DefinedMatricesDiv namesOfMatrices = {getNameOfMatrices()}/>
-           <OperationsDiv listOfOperations = {props.initialData.operations} />
+           <OperationsDiv calculations = {props.calculations} />
            <ExpressionTextDiv expressionText={props.expressionText}/>
            <ExpressionViewDiv expressionText = {props.expressionText}
                               getMatrixByName = {getMatrixByName}

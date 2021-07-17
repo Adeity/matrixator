@@ -1,6 +1,6 @@
 function AddMatrixButton(props) {
     return (
-        <button>+</button>
+        <button className={"add-matrix-buttton"}>+</button>
     )
 }
 

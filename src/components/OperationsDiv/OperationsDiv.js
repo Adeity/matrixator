@@ -2,15 +2,15 @@ import Fieldset from "../Buttons/Fieldset";
 import Button from "../Buttons/Button";
 
 function OperationsDiv(props) {
-    const buttons = props.listOfOperations.map((operation) =>
-        <Button key = {operation+"Button"}value = {operation}/>
-    );
 
     return (
-        <div>
+        <div className={"operations-div"}>
             <h2>Operations</h2>
             <Fieldset>
-                {buttons}
+                <Button value = {"-1"}/>
+                <Button value = {"det"}/>
+                <Button value = {"rank"}/>
+                <Button value = {"diag"}/>
             </Fieldset>
         </div>
     )

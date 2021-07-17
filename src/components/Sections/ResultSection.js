@@ -5,7 +5,7 @@ import ResultViewDiv from '../ResultViewDiv/ResultViewDiv'
 
 function ResultSection(props){
     return(
-        <div>
+        <div className={"result-section"}>
             <ResultViewDiv resultMatrix = {props.resultMatrix}/>
         </div>
     );

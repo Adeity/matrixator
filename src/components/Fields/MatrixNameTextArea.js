@@ -10,7 +10,7 @@ function MatrixNameTextArea(props) {
     }
 
     return (
-        <input value={name} onChange={handleChange}></input>
+        <input className={"matrix-name-text-area"} value={name} onChange={handleChange}></input>
     )
 }
 

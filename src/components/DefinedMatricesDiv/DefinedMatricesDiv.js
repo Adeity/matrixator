@@ -8,14 +8,13 @@ function DefinedMatricesDiv(props) {
     );
 
     return (
-        <div>
+        <div className={"defined-matrices-div"}>
             <h2>Defined matrices:</h2>
             <Fieldset>
                 {buttons}
             </Fieldset>
         </div>
     )
-
 }
 
 export default DefinedMatricesDiv;

@@ -3,21 +3,20 @@ import MatrixElementInput from './Fields/MatrixElementInput'
 function Matrix (props) {
     let disabled = (props.disabled === true) ? "disabled" : "a";
 
-    const elements = props.elements.map((row) =>
+    const elements = props.elements.map((row, indexRow) =>
         <div>
             {
-                row.map((element, index) =>
-                    <input key = {index} defaultValue={element}>
+                row.map((element, indexCol) =>
+                    <input key = {indexRow+indexCol} defaultValue={element}>
                     </input>
                 )
             }
         </div>
-
     );
 
 
     return(
-        <div>{elements}</div>
+        <div className={"matrix"}>{elements}</div>
     )
 }
 
