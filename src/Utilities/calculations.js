@@ -206,7 +206,7 @@ function multiplyMatrices(elements1, elements2) {
     console.log("Rows: " + rows + " columns: " + columns)
 
     if(!canMultiply(elements1Cols, elements2.length)) {
-        throw new MatrixMultiplicationError("Cannot multiply dimension. Column dimension of left matrix must be equal to row dimension of right matrix. Current dimension: col1: " + elements1Cols + ", " + elements2.size)
+        throw new MatrixMultiplicationError("Cannot multiply matrices. Column dimension of matrix A must be equal to row dimension of matrix B.")
     }
 
     let resultElements = getEmptyMatrixWithDimension(rows, columns)
@@ -219,6 +219,12 @@ function multiplyMatrices(elements1, elements2) {
             expr = ""
 
             for (k = 0; k < elements1Cols; k++) {
+                if (isNaN(elements1[i][k])) {
+                    throw new MatrixMultiplicationError("Multiplication does not support non numerical elements. Matrix A element: '"+elements1[i][k]+  "' at ("+i+", "+k+")")
+                }
+                if (isNaN(elements2[k][j])) {
+                    throw new MatrixMultiplicationError("Multiplication does not support non numerical elements. Matrix B  element: '"+elements2[k][j]+  "' at ("+k+", "+j+")")
+                }
                 if (k>0) {
                     expr = expr + "+" + (elements1[i][k] +"*"+ elements2[k][j]);
                 } else {

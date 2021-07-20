@@ -1,7 +1,6 @@
 import Header from './components/Header'
 import Footer from './components/Footer'
 import DefinitionSection from './components/Sections/DefinitionSection'
-import OperationsSection from './components/Sections/OperationsSection'
 import ResultSection from './components/Sections/ResultSection'
 import React, { useState } from 'react';
 
@@ -13,16 +12,13 @@ function Homepage(props) {
             <DefinitionSection
                 definedMatrices = {props.initialData.definedMatrices}
                 calculations = {props.calculations}
+                definitionSectionFunctions = {props.definitionSectionFunctions}
             />
-            {/*<OperationsSection*/}
-            {/*    initialData = {props.initialData}*/}
-            {/*    expressionText = {props.expressionText}*/}
-            {/*    calculations = {props.calculations}*/}
-            {/*/>*/}
             <ResultSection
-                definedMatrices = {props.initialData.definedMatrices}
+                matrixGetters = {props.matrixGetters}
                 expressionText = {props.expressionText}
                 resultMatrix = {props.resultMatrix}
+                parseError = {props.parseError}
             />
             {/*<Footer />*/}
         </div>

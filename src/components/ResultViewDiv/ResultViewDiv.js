@@ -1,24 +1,12 @@
-import SaveMatrixButton from '../Buttons/SaveMatrixButton'
 import Fieldset from "../Buttons/Fieldset";
-import translateMatrixElementsToMathJax from '../../Utilities/Utilities'
 import {useState, useEffect} from "react";
 import Matrix from "../Matrix";
+import React from "react";
 
 
-function ResultViewDiv(props) {
-    function matrixElementsView (elements) {
-        const h = elements.map((row) => {
-            row.map((element) => {
-                return (
-                    "<span>{element}</span>"
-                )
-            })
-            return <div>{row}</div>
-        })
-        return h
-    }
+class ResultViewDiv extends React.Component {
 
-    function resultToView (resultMatrix) {
+    resultToView (resultMatrix) {
         const result = resultMatrix
 
         if (typeof result === 'number') {
@@ -32,14 +20,11 @@ function ResultViewDiv(props) {
         }
     };
 
-    const [operationView, setOperationView] = useState(""); //  defined matrices state
-
-
-    function expressionToView(){
+    expressionToView(){
         var result = []
-        console.log("Reading " + props.expressionText)
-        for (let i = 0; i < props.expressionText.length; i++) {
-            const symbol = props.expressionText[i]
+        console.log("Reading " + this.props.expressionText)
+        for (let i = 0; i < this.props.expressionText.length; i++) {
+            const symbol = this.props.expressionText[i]
 
             if (symbol === " ") {
                 continue
@@ -47,20 +32,20 @@ function ResultViewDiv(props) {
 
             console.log("Current symbol:" + symbol)
 
-            if (isOperation(symbol)) {
+            if (this.isOperation(symbol)) {
                 console.log("Symbol is operation")
                 result.push(symbol)
             } else {
                 //  this can be done only if defined matrices are limited to 2 matrices maximum
                 let matrix = null
                 if (symbol === "A") {
-                    matrix = props.definedMatrices[0]
+                    matrix = this.props.matrixGetters.getMatrixA()
                 } else if (symbol === "B") {
-                    matrix = props.definedMatrices[1]
+                    matrix = this.props.matrixGetters.getMatrixB()
                 }
                 if (matrix !== null) {
                     console.log("Matrix found")
-                    result.push(<Matrix elements = {matrix.matrixElements} disabled = {true} />)
+                    result.push(<Matrix key = {symbol} elements = {matrix.matrixElements} disabled = {true} />)
                 }
                 else {
                     console.log("Matrix is null")
@@ -71,11 +56,7 @@ function ResultViewDiv(props) {
         return result;
     }
 
-
-
-
-
-    function isOperation(o) {
+    isOperation(o) {
         const listOfOperations = ["+", "-", "x", "*"];
         if (listOfOperations.includes(o)) {
             return true
@@ -85,24 +66,27 @@ function ResultViewDiv(props) {
         }
     }
 
-    useEffect(() => {
-        // MathJax.Hub.Queue(["Typeset",MathJax.Hub,root]);
-    });
+    render() {
+        const error = this.props.parseError !== ""
+        let output
+        if (error) {
+            output = this.props.parseError
+        }
+        else {
+            output = <div>
+                        {this.expressionToView()}
+                {"="}
+                         {this.resultToView(this.props.resultMatrix)}
+                    </div>
+        }
+        return (
+            <div className={"result-view-div"}>
+                <h2>Result</h2>
+                {output}
+            </div>
+        )
+    }
 
-
-    let resultMatrix = props.resultMatrix
-
-    return (
-        <div className={"result-view-div"}>
-            <h2>Result</h2>
-            <Fieldset>
-                {expressionToView()}
-                =
-                {resultToView(resultMatrix)}
-            </Fieldset>
-        </div>
-
-    )
 }
 
 export default ResultViewDiv

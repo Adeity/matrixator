@@ -25,3 +25,7 @@ code {
 mjx-container[jax="CHTML"][display="true"] {
   display: inline-block!important;
 }
+
+.matrix-element {
+  width: 2rem;
+}

@@ -17,5 +17,4 @@ describe("Multiplication", function() {
 
         expect(actualResult).toEqual(expectedResult);
     });
-
 });

@@ -1,4 +1,3 @@
-import MatrixElementInput from './Fields/MatrixElementInput'
 
 function Matrix (props) {
     let disabled = (props.disabled === true) ? "disabled" : "";
@@ -7,7 +6,7 @@ function Matrix (props) {
         <div>
             {
                 row.map((element, indexCol) =>
-                    <input key = {indexRow+indexCol} defaultValue={element}  disabled={disabled}>
+                    <input onChange={(e) => props.functions.changeElementInMatrix(props.id, indexRow, indexCol, e.target.value)} key = {indexRow+indexCol} defaultValue={element}  disabled={disabled} className={"matrix-element"}>
                     </input>
                 )
             }
