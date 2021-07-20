@@ -225,9 +225,12 @@ function multiplyMatrices(elements1, elements2) {
                     expr = (elements1[i][k] +"*"+ elements2[k][j])
                 }
             }
-            resultElements[i][j] = calculateExpression(expr)
+            let calculatedExpr = calculateExpression(expr)
+            //  calculateExpression returns ConstantNode of some sort. That's why I get the .value here
+            resultElements[i][j] = calculatedExpr.value
         }
     }
+
 
     return resultElements
 }

@@ -8,6 +8,8 @@ const homepage = <Homepage />
 
 function App() {
 
+
+
   const initialTestDefinitions =
       {
         "definedMatrices":[
@@ -46,16 +48,19 @@ function App() {
   const addition = function () {
     let resMatrix = add(initialData.definedMatrices[0].matrixElements, initialData.definedMatrices[1].matrixElements)
     setResultMatrix(resMatrix)
+    setExpressionText("A + B")
   }
 
   const subtraction = function () {
     let resMatrix = subtract(initialData.definedMatrices[0].matrixElements, initialData.definedMatrices[1].matrixElements)
     setResultMatrix(resMatrix)
+    setExpressionText("A - B")
   }
 
   const multiplication = function () {
     let resMatrix = multiplyMatrices(initialData.definedMatrices[0].matrixElements, initialData.definedMatrices[1].matrixElements)
     setResultMatrix(resMatrix)
+    setExpressionText("A * B")
   }
 
 
@@ -76,5 +81,8 @@ function App() {
     />
   );
 };
+
+
+
 
 export default App;

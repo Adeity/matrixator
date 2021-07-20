@@ -19,7 +19,10 @@ function Homepage(props) {
             {/*    expressionText = {props.expressionText}*/}
             {/*    calculations = {props.calculations}*/}
             {/*/>*/}
-            <ResultSection resultMatrix = {props.resultMatrix}
+            <ResultSection
+                definedMatrices = {props.initialData.definedMatrices}
+                expressionText = {props.expressionText}
+                resultMatrix = {props.resultMatrix}
             />
             {/*<Footer />*/}
         </div>
