@@ -46,6 +46,10 @@ function addRowToMatrix (idMatrix, data, setData) {
     let dataCopy = {...data}
     for (let i = 0; i < data.definedMatrices.length; i++) {
         if (dataCopy.definedMatrices[i].id === idMatrix) {
+            //  validation that column dimension doesnt become more than 5
+            if (dataCopy.definedMatrices[i].rowDimension === 5 || dataCopy.definedMatrices[i].matrixElements.length === 5) {
+                return false
+            }
             let row = new Array(dataCopy.definedMatrices[i].columnDimension)
             row.fill(0)
             dataCopy.definedMatrices[i].matrixElements.push(row)
@@ -66,6 +70,10 @@ function removeRowFromMatrix (idMatrix, data, setData) {
     let dataCopy = {...data}
     for (let i = 0; i < data.definedMatrices.length; i++) {
         if (dataCopy.definedMatrices[i].id === idMatrix) {
+            //  validation that column dimension doesnt become 0
+            if (dataCopy.definedMatrices[i].rowDimension === 1 || dataCopy.definedMatrices[i].matrixElements.length === 1) {
+                return false
+            }
             dataCopy.definedMatrices[i].matrixElements.pop()
             dataCopy.definedMatrices[i].rowDimension--
             setData(dataCopy)
@@ -109,6 +117,10 @@ function addColumnToMatrix (idMatrix, data, setData) {
     let dataCopy = {...data}
     for (let i = 0; i < data.definedMatrices.length; i++) {
         if (dataCopy.definedMatrices[i].id === idMatrix) {
+            //  validation that column dimension doesnt become more than 5
+            if (dataCopy.definedMatrices[i].columnDimension === 5 || dataCopy.definedMatrices[i].matrixElements[0].length === 5) {
+                return false
+            }
             addZeroElementToEachInternalArray(dataCopy.definedMatrices[i].matrixElements)
             dataCopy.definedMatrices[i].columnDimension++
             setData(dataCopy)
@@ -130,6 +142,11 @@ function removeColumnFromMatrix (idMatrix, data, setData) {
     let dataCopy = {...data}
     for (let i = 0; i < data.definedMatrices.length; i++) {
         if (dataCopy.definedMatrices[i].id === idMatrix) {
+            //  validation that column dimension doesnt become 0
+            if (dataCopy.definedMatrices[i].columnDimension === 1 || dataCopy.definedMatrices[i].matrixElements[0].length === 1) {
+                return false
+            }
+            //  removing column
             removeElementFromEachInternalArray(dataCopy.definedMatrices[i].matrixElements)
             dataCopy.definedMatrices[i].columnDimension--
             setData(dataCopy)
