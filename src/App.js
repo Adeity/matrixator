@@ -43,78 +43,37 @@ function App() {
   const {multiplyMatrices} = calculations
   const {inverse} = calculations
   const {determinant} = calculations
-  const {rank} = calculations
-  const {diagonalize} = calculations
   const {transpose} = calculations
 
   const addition = function () {
-    setParseError("")
-    try {
-      let resMatrix = add(applicationData.definedMatrices[0].matrixElements, applicationData.definedMatrices[1].matrixElements)
-      setResultMatrix(resMatrix)
-      setExpressionText("A + B")
-    } catch (e) {
-      setParseError(e.message)
-      setResultMatrix([[]])
-      setExpressionText("")
-    }
+    calculate("", add, "A * B")
   }
 
   const subtraction = function () {
-    setParseError("")
-    try {
-      let resMatrix = subtract(applicationData.definedMatrices[0].matrixElements, applicationData.definedMatrices[1].matrixElements)
-      setResultMatrix(resMatrix)
-      setExpressionText("A - B")
-    } catch (e) {
-      setParseError(e.message)
-      setResultMatrix([[]])
-      setExpressionText("")
-    }
+    calculate("", subtract, "A * B")
   }
 
   const multiplication = function () {
-    setParseError("")
-    try {
-      let resMatrix = multiplyMatrices(applicationData.definedMatrices[0].matrixElements, applicationData.definedMatrices[1].matrixElements)
-      setResultMatrix(resMatrix)
-      setExpressionText("A * B")
-    } catch (e) {
-      setParseError(e.message)
-      setResultMatrix([[]])
-      setExpressionText("")
-    }
+    calculate("", multiplyMatrices, "A * B")
   }
 
   const inverseMatrix = function (matrixName) {
-    console.log("Matrix name in inverse fce:")
-    console.log(matrixName)
-    setParseError("")
-    try {
-      let resMatrix;
-      if (matrixName === "A") {
-        resMatrix = inverse(applicationData.definedMatrices[0].matrixElements)
-      } else if (matrixName === "B") {
-        resMatrix = inverse(applicationData.definedMatrices[1].matrixElements)
-      }
+    calculate(matrixName, inverse, "inverse " + matrixName)
+  }
 
-      if (resMatrix !== null) {
-        setResultMatrix(resMatrix)
-        setExpressionText("inverse ("+matrixName+")")
-      }
-    } catch (e) {
-      console.log(e)
-      setParseError(e.message)
-      setResultMatrix([[]])
-      setExpressionText("")
-    }
+  const calculateDeterminant = function (matrixName) {
+    calculate(matrixName, determinant, "determinant ("+matrixName+")")
+  }
+
+  const transposeMatrix = function(matrixName) {
+    calculate(matrixName, transpose, "transpose ("+matrixName+")")
   }
 
   const calculate = function (matrixName, callbackFce, expressionText) {
     setParseError("")
     let res
     try {
-      if (matrixName !== undefined) {
+      if (matrixName !== "") { //  if matrix is "" it means that calculation is between matrices A and B
         let inputMatrix = getMatrix(matrixName)
         res = callbackFce(inputMatrix.matrixElements)
       }
@@ -123,7 +82,7 @@ function App() {
       }
       if (res !== null) {
         setResultMatrix(res)
-        setExpressionText("determinant ("+matrixName+")")
+        setExpressionText(expressionText)
       }
     } catch (e) {
       console.log(e)
@@ -133,41 +92,14 @@ function App() {
     }
   }
 
-  const calculateDeterminant = function (matrixName) {
-    setParseError("")
-    try {
-      let res
-      let inputMatrix = getMatrix(matrixName)
-      res = determinant(inputMatrix.matrixElements)
-
-      if (res !== null) {
-        setResultMatrix(res)
-        setExpressionText("determinant ("+matrixName+")")
-      }
-    } catch (e) {
-      console.log(e)
-      setParseError(e.message)
-      setResultMatrix([[]])
-      setExpressionText("")
-    }
+  const calculationsList = {
+    transposeMatrix,
+    addition,
+    subtraction,
+    multiplication,
+    inverseMatrix,
+    calculateDeterminant
   }
-
-  const calculateRank = function (matrixName) {
-    let inputMatrix = getMatrix(matrixName)
-    return rank(inputMatrix.matrixElements)
-  }
-
-  const diagonalizeMatrix = function (matrixName) {
-    let inputMatrix = getMatrix(matrixName)
-    return diagonalize(inputMatrix.matrixElements)
-  }
-
-  const transposeMatrix = function(matrixName) {
-    let inputMatrix = getMatrix(matrixName)
-    return transpose(inputMatrix.matrixElements)
-  }
-
-  const calculationsList = {transposeMatrix, addition, subtraction, multiplication, inverseMatrix, calculateDeterminant, calculateRank, diagonalizeMatrix}
 
   /**
    * Functions for Definition Section such as dimension settings of individual matrices and removal of a matrix.

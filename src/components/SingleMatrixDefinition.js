@@ -18,9 +18,7 @@ function SingleMatrixDefinition(props){
             {props.dimensionSettings}
             <button className={"btn btn-primary " + props.isDisabled} onClick={() => props.calculations.inverseMatrix(props.matrixName)} disabled={disabled}>-1</button>
             <button className={"btn btn-primary " + props.isDisabled} onClick={() => props.calculations.calculateDeterminant(props.matrixName)} disabled={disabled}>det</button>
-            <button className={"btn btn-primary " + props.isDisabled} onClick={() => props.calculations.calculateRank(props.matrixName)} disabled={disabled}>rank</button>
-            <button className={"btn btn-primary " + props.isDisabled} onClick={() => props.calculations.diagonalizeMatrix(props.matrixName)} disabled={disabled}>diag</button>
-
+            <button className={"btn btn-primary " + props.isDisabled} onClick={() => props.calculations.transposeMatrix(props.matrixName)} disabled={disabled}>T</button>
         </div>
     )
 }
