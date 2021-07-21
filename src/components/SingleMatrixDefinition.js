@@ -7,16 +7,20 @@ function SingleMatrixDefinition(props){
     console.log("nonSquare is: ")
     console.log(disabled)
 
+    console.log("Matrix name in singleMatrixDefinition:")
+    console.log(props.matrixName)
+
     return(
         <div className={"single-matrix-definition"}>
-            {props.matrixName}
+            <span>Matrix {props.matrixName}</span>
             {props.deleteMatrixButton}
             {props.matrix}
             {props.dimensionSettings}
-            <Button value = {"-1"} onClick={props.calculations.inverse} disabled={disabled}/>
-            <Button value = {"det"} onClick={props.calculations.determinant} disabled={disabled}/>
-            <Button value = {"rank"} onClick={props.calculations.rank} disabled={disabled}/>
-            <Button value = {"diag"} onClick={props.calculations.diagonalize} disabled={disabled}/>
+            <button className={"btn btn-primary " + props.isDisabled} onClick={() => props.calculations.inverseMatrix(props.matrixName)} disabled={disabled}>-1</button>
+            <button className={"btn btn-primary " + props.isDisabled} onClick={() => props.calculations.calculateDeterminant(props.matrixName)} disabled={disabled}>det</button>
+            <button className={"btn btn-primary " + props.isDisabled} onClick={() => props.calculations.calculateRank(props.matrixName)} disabled={disabled}>rank</button>
+            <button className={"btn btn-primary " + props.isDisabled} onClick={() => props.calculations.diagonalizeMatrix(props.matrixName)} disabled={disabled}>diag</button>
+
         </div>
     )
 }

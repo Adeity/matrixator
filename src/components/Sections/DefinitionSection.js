@@ -8,14 +8,19 @@ function DefinitionSection(props){
     const matrixAData = props.definedMatrices[0]
     const matrixBData = props.definedMatrices[1]
 
+    console.log("MatrixAData elements:")
+    console.log(matrixAData.matrixElements)
+
+    console.log("MatrixBData elements:")
+    console.log(matrixBData.matrixElements)
+
+
 
     const matrixA = <SingleMatrixDefinition
         calculations = {props.calculations}
         class = {"single-matrix-definition"}
         key = {"smdA"}
-        matrixName = {
-            <span>Matrix {matrixAData.name}</span>
-        }
+        matrixName = {matrixAData.name}
         matrix={
             <Matrix functions = {props.definitionSectionFunctions} key = {"m"+matrixAData.id} elements = {matrixAData.matrixElements} id = {matrixAData.id} />
         }
@@ -28,9 +33,7 @@ function DefinitionSection(props){
         calculations = {props.calculations}
         class = {"single-matrix-definition"}
         key = {"smdB"}
-        matrixName = {
-            <span>Matrix {matrixBData.name}</span>
-        }
+        matrixName = {matrixBData.name}
         matrix={
             <Matrix functions = {props.definitionSectionFunctions} key = {"m"+matrixBData.id} elements = {matrixBData.matrixElements} id = {matrixBData.id} />
         }

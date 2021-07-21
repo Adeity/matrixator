@@ -256,7 +256,9 @@ function swap(arr , i1 , j1 , i2,
  * @returns {boolean}
  */
 function isMatrixSquare(elements) {
-    let rowDimension = elements.size, columnDimension = elements[0].size
+    let rowDimension = elements.length, columnDimension = elements[0].length
+    console.log("matrix row length: " + elements.length)
+    console.log("matrix col length: " + elements[0].length)
     return rowDimension === columnDimension
 }
 
@@ -288,21 +290,7 @@ function getEmptySquareMatrix(dim) {
     for (let l = 0; l < dim; l++) {
         resultElements[l].push(new Array(dim))
     }
-}
-
-// This function stores transpose
-// of A in B
-function transpose(elements) {
-    var i, j;
-
-    let rows = elements.size
-    let cols = elements[0].size;
-
-    let resultElements = getEmptyMatrixWithDimension(cols, rows)
-
-    for (i = 0; i < cols; i++)
-        for (j = 0; j < rows; j++)
-            resultElements[i][j] = elements[j][i];
+    return resultElements
 }
 
 let dim = 4;
@@ -336,117 +324,7 @@ function getCofactor(A,temp,p,q,n)
     }
 }
 
-// Function to get determinant of matrix
-function calculateDeterminant(elements) {
-    if (!isMatrixSquare) {
-        throw new DimensionError("Cannot calculate a determinant of a non square matrix. Current dimension: " + elements.size + ", " + elements[0].size)
-    }
 
-    var num1, num2, det = 1, index,
-        total = 1; // Initialize result
-
-    var n = elements.size
-
-    // temporary array for storing row
-    var temp = Array(n + 1).fill(0);
-
-    // loop for traversing the diagonal elements
-    for (let i = 0; i < n; i++)
-    {
-        index = i; // initialize the index
-
-        // finding the index which has non zero value
-        while (elements[index][i] == 0 && index < n)
-        {
-            index++;
-        }
-        if (index == n) // if there is non zero element
-        {
-            // the determinant of matrix as zero
-            continue;
-        }
-        if (index != i)
-        {
-            // loop for swaping the diagonal element row
-            // and index row
-            for (let j = 0; j < n; j++)
-            {
-                swap(elements, index, j, i, j);
-            }
-            // determinant sign changes when we shift
-            // rows go through determinant properties
-            det = parseInt((det * Math.pow(-1, index - i)));
-        }
-
-        // storing the values of diagonal row elements
-        for (let j = 0; j < n; j++)
-        {
-            temp[j] = elements[i][j];
-        }
-
-        // traversing every row below the diagonal
-        // element
-        for (let j = i + 1; j < n; j++) {
-            num1 = temp[i]; // value of diagonal element
-            num2 = elements[j]
-                [i]; // value of next row element
-
-            // traversing every column of row
-            // and multiplying to every row
-            for (let k = 0; k < n; k++)
-            {
-                // multiplying to make the diagonal
-                // element and next row element equal
-                elements[j][k] = (num1 * elements[j][k])
-                    - (num2 * temp[k]);
-            }
-            total = total * num1; // Det(kA)=kDet(A);
-        }
-    }
-
-    // multiplying the diagonal elements to get
-    // determinant
-    for (let i = 0; i < n; i++) {
-        det = det * elements[i][i];
-    }
-    return (det / total); // Det(kA)/k=Det(A);
-}
-
-/**
- * Recursive function for finding determinant of matrix.
- * @param elements must be a square matrix
- * @param n current dimension of elements[][]
- * @returns {number|*}
- */
-function determinant(elements,n)
-{
-    let D = 0; // Initialize result
-
-    // Base case : if matrix contains single element
-    if (n == 1)
-        return elements[0][0];
-
-    let temp = new Array(dim);// To store cofactors
-    for(let i=0;i<dim;i++)
-    {
-        temp[i]=new Array(dim);
-    }
-
-    let sign = 1; // To store sign multiplier
-
-    // Iterate for each element of first row
-    for (let f = 0; f < n; f++)
-    {
-        // Getting Cofactor of elements[0][f]
-        getCofactor(elements, temp, 0, f, n);
-        D += sign * elements[0][f] * determinant(temp, n - 1);
-
-        // terms are to be added with alternate sign
-        sign = -sign;
-    }
-
-    return D;
-}
 
 // Function to get adjoint of A[dim][dim] in adj[dim][dim].
 function  adjoint(elements)
@@ -488,6 +366,35 @@ function  adjoint(elements)
     return adj
 }
 
+function getDeterminant (elements) {
+    const config = { }
+    const math = create(all, config)
+
+    return math.det(elements)
+}
+
+// Function to get determinant of matrix
+function determinant(elements) {
+    if (!isMatrixSquare(elements)) {
+        throw new DimensionError("Cannot calculate determinant of a non square matrix.")
+    }
+    return getDeterminant(elements)
+}
+
+function getInverse (elements) {
+    const config = { }
+    const math = create(all, config)
+
+    return math.inv(elements)
+}
+
+function transpose(elements) {
+    const config = { }
+    const math = create(all, config)
+
+    return math.transpose(elements)
+}
+
 // Function to calculate and store inverse, returns false if
 // matrix is singular
 function inverse(elements) {
@@ -497,24 +404,15 @@ function inverse(elements) {
     }
 
     // Find determinant of elements[][]
-    let det = determinant(elements, dim);
+    let det = getDeterminant(elements);
 
     //  determinant is square but singular
     if (det === 0) {
         throw new NonInvertibleMatrixError("Singular matrix, can't find its inverse");
     }
 
-    let adj = adjoint(elements);
-    let inverse = getEmptySquareMatrix(dim)
-
-    // Find Inverse using formula "inverse(elements) = adj(elements)/det(elements)"
-    for (let i = 0; i < dim; i++)
-        for (let j = 0; j < dim; j++)
-            inverse[i][j] = adj[i][j]/det;
-
-    return inverse;
+    return getInverse(elements);
 }
 
-
-const calculations =  {add, subtract, multiplyMatrices, inverse, calculateDeterminant, parseSingleElementToString}
+const calculations =  {add, subtract, multiplyMatrices, inverse, determinant, transpose}
 export default calculations

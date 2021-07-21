@@ -2,6 +2,9 @@
 function Matrix (props) {
     let disabled = (props.disabled === true) ? "disabled" : "";
 
+    console.log("Elements of matrix:")
+    console.log(props.elements)
+
     const elements = props.elements.map((row, indexRow) =>
         <div>
             {
