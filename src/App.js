@@ -44,6 +44,7 @@ function App() {
   const {inverse} = calculations
   const {determinant} = calculations
   const {transpose} = calculations
+  const {dotProduct} = calculations
 
   const addition = function () {
     calculate("", add, "A * B")
@@ -51,6 +52,10 @@ function App() {
 
   const subtraction = function () {
     calculate("", subtract, "A * B")
+  }
+
+  const calculateDot = function () {
+    calculate("", dotProduct, "A dot B")
   }
 
   const multiplication = function () {
@@ -98,7 +103,8 @@ function App() {
     subtraction,
     multiplication,
     inverseMatrix,
-    calculateDeterminant
+    calculateDeterminant,
+    calculateDot
   }
 
   /**

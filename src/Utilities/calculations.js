@@ -395,6 +395,38 @@ function transpose(elements) {
     return math.transpose(elements)
 }
 
+function getDot(vector1, vector2) {
+    const config = { }
+    const math = create(all, config)
+
+    return math.dot(vector1, vector2)
+}
+
+function dotProduct (elements1, elements2) {
+    //  checking that number of columns is 1 here
+    if (!isVector(elements1) || !isVector(elements2)) {
+        throw new DimensionError("Dot product can be calculated between two vectors. Expected number of columns is 1 for both matrices (vectors).")
+    }
+    //  checking number of rows here
+    if (elements1.length !== elements2.length) {
+        throw new DimensionError("To calculate dot product of two vectors they must have the same number of rows.")
+    }
+    let vector1 = toVector(elements1)
+    let vector2 = toVector(elements2)
+    return getDot(vector1, vector2)
+}
+
+function isVector (elements) {
+    return elements[0].length === 1
+}
+
+function toVector (elements) {
+    let vector = elements.map((row) => {
+        return row[0]
+    })
+    return vector
+}
+
 // Function to calculate and store inverse, returns false if
 // matrix is singular
 function inverse(elements) {
@@ -414,5 +446,5 @@ function inverse(elements) {
     return getInverse(elements);
 }
 
-const calculations =  {add, subtract, multiplyMatrices, inverse, determinant, transpose}
+const calculations =  {add, subtract, multiplyMatrices, inverse, determinant, transpose, dotProduct}
 export default calculations

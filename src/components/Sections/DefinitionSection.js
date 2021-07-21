@@ -51,6 +51,7 @@ function DefinitionSection(props){
                     <Button value = {"+"} handleClick = {props.calculations.addition}/>
                     <Button value = {"-"} handleClick = {props.calculations.subtraction}/>
                     <Button value = {"*"} handleClick = {props.calculations.multiplication}/>
+                    <Button value = {"dot"} handleClick = {props.calculations.calculateDot}/>
                 </div>
                 {matrixB}
             </div>
