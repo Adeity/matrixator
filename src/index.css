@@ -29,3 +29,8 @@ mjx-container[jax="CHTML"][display="true"] {
 .matrix-element {
   width: 2rem;
 }
+
+.result-view-div {
+  display: flex;
+  align-items: center;
+}

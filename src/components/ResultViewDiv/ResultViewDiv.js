@@ -140,13 +140,13 @@ class ResultViewDiv extends React.Component {
             output = this.props.parseError
         }
         else {
-            output = <div>
+            output = <div className={"result-view-div"}>
                         {this.expressionToView()}
                          {this.resultToView(this.props.resultMatrix)}
                     </div>
         }
         return (
-            <div className={"result-view-div"}>
+            <div>
                 <h2>Result</h2>
                 {output}
             </div>
