@@ -1,5 +1,3 @@
-import Button from "./Buttons/Button";
-
 function SingleMatrixDefinition(props){
     //  if matrix is not square, some matrix operations must be disabled
     const disabled = (props.rowDimension === props.columnDimension) ? "" : "disabled";

@@ -1,40 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
-
-/**
- * Searches through application data and finds element by name
- * @param name of desired element
- * @return desired element if it exists or null if it doesn't
- */
-function searchElementByNameIn (data, name) {
-    let resElement = null
-
-    for (let i = 0; i < data.length; i++) {
-        if (data[i].name === name) {
-            resElement = data[i].rowDimension
-            break
-        }
-    }
-
-    return resElement
-}
-
-/**
- * Searches through application data and finds element by ID
- * @param id of desired element
- * @return desired element if it exists or null if it doesn't
- */
-function searchElementByIdIn (data, id) {
-    let resElement = null
-
-    for (let i = 0; i < data.length; i++) {
-        if (data[i].id === id) {
-            resElement = data[i]
-            break
-        }
-    }
-
-    return resElement
-}
 
 /**
  * This function finds a matrix based on its id and adds a row filled with zero element to it
@@ -168,4 +131,4 @@ function changeElement(idMatrix, data, setData, row, column, value) {
 
 
 
-export {changeElement, searchElementByIdIn, searchElementByNameIn, addRowToMatrix, addColumnToMatrix, removeRowFromMatrix, removeColumnFromMatrix}
+export {changeElement, addRowToMatrix, addColumnToMatrix, removeRowFromMatrix, removeColumnFromMatrix}

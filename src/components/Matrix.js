@@ -6,10 +6,10 @@ function Matrix (props) {
     console.log(props.elements)
 
     const elements = props.elements.map((row, indexRow) =>
-        <div>
+        <div key={props.id + "" + indexRow}>
             {
                 row.map((element, indexCol) =>
-                    <input onChange={(e) => props.functions.changeElementInMatrix(props.id, indexRow, indexCol, e.target.value)} key = {indexRow+indexCol} defaultValue={element}  disabled={disabled} className={"matrix-element " + props.additionalStyle}>
+                    <input onChange={(e) => props.functions.changeElementInMatrix(props.id, indexRow, indexCol, e.target.value)} key = {indexRow+""+indexCol+props.id} defaultValue={element}  disabled={disabled} className={"matrix-element " + props.additionalStyle}>
                     </input>
                 )
             }
@@ -18,7 +18,7 @@ function Matrix (props) {
 
 
     return(
-        <div className={"matrix"}>{elements}</div>
+        <div key={props.id+disabled} className={"matrix"}>{elements}</div>
     )
 }
 

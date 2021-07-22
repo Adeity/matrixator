@@ -29,118 +29,6 @@ function haveSameDimensions(elements1, elements2) {
         (numOfCols1 === numOfCols2)
 }
 
-function sortStringAlphabetically(str){
-    var arr = str.split('');
-    var tmp;
-    for(var i = 0; i < arr.length; i++){
-        for(var j = i + 1; j < arr.length; j++){
-            /* if ASCII code greater then swap the elements position*/
-            if(arr[i] > arr[j]){
-                tmp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = tmp;
-            }
-        }
-    }
-    return arr.join('');
-}
-
-function multiplyNumbersInsideArray(arr) {
-    let res = 1
-    for (let i = 0; i < arr.length; i++) {
-        res *= parseInt(arr[i])
-    }
-    return res
-}
-
-function isNumeric(x) {
-    let numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
-    return numbers.includes(x)
-}
-
-function divideVariablesAndCoefficient(textElement){
-    let coefficients = []
-    let variables = ""
-    // console.log("textElement size:")
-    // console.log(textElement.size)
-    // console.log("textElement length:")
-    // console.log(textElement.length)
-    for (let i = 0; i < textElement.length; i++){
-        let currentCoefficient = ""
-
-        let isNum = isNumeric(textElement[i])
-
-        console.log("Numeric var: ")
-        console.log(isNum)
-
-        console.log("Now looking at:")
-        console.log(textElement[i])
-        while(isNum) {
-            console.log("Current i index: " + i)
-            console.log("Current char: " + textElement[i])
-            console.log("Character is integer")
-
-            currentCoefficient += textElement[i]
-
-            console.log("Current Coefficient:")
-            console.log(currentCoefficient)
-
-
-
-            if (i + 1 === textElement.length) {
-                break
-            }
-
-            let isNum = isNumeric(textElement[i+1])
-
-            if(!isNum) {
-                console.log("Next char is not numeric.")
-                coefficients.push(currentCoefficient)
-                break
-            }
-            else {
-                console.log("Next char is also numeric, incrementing i index")
-                i++
-            }
-        }
-
-        if (!isNum) { // if wasnt inside while loop
-            console.log("Is not numeric")
-            //  todo: allow characters and ',' and '.'. Also check for expressions such as '3.2.4'
-            if (textElement[i] !== " ") {
-                variables += textElement[i]
-            }
-        }
-    };
-
-    variables = sortStringAlphabetically(variables)
-
-    console.log("Coefficients array:")
-    console.log(coefficients)
-
-    let resCoef = multiplyNumbersInsideArray(coefficients)
-
-    console.log("Result coefficient: " + resCoef)
-
-    return [resCoef, variables]
-
-}
-
-function parseSingleElementToString(textElement) {
-    //  3  a = 3a
-    //  3ab dsad s = 3aabdds
-    //  2a + 2a =
-    let element1Divided1 = divideVariablesAndCoefficient(textElement)
-
-    let coefficient1 = element1Divided1[0]
-    let variable1 = element1Divided1[1]
-
-    return coefficient1 + variable1
-}
-
-
-
-
 /**
  * Gets called when need to parse expression of either plus or minus
  * @param elements1 are elements of matrix
@@ -166,6 +54,7 @@ function additionSubtraction (elements1, elements2, operand) {
                 else if (operand === "-")
                     return elements1[i][k] - elements2[i][k]
             }
+            return []
         })
         return row
     })
@@ -241,15 +130,6 @@ function multiplyMatrices(elements1, elements2) {
     return resultElements
 }
 
-function swap(arr , i1 , j1 , i2,
-              j2)
-{
-    var temp = arr[i1][j1];
-    arr[i1][j1] = arr[i2][j2];
-    arr[i2][j2] = temp;
-    return arr;
-}
-
 /**
  * Function to find out wheter row dimension of a matrix is the same as its column dimension.
  * @param elements are elements of a matrix
@@ -279,91 +159,6 @@ function getEmptyMatrixWithDimension(row, column) {
         resultElements[l] = (new Array(column))
     }
     return resultElements
-}
-
-/**
- * Return empty square matrix
- * @param dim is row and column dimension of matrix
- */
-function getEmptySquareMatrix(dim) {
-    let resultElements = new Array(dim)
-    for (let l = 0; l < dim; l++) {
-        resultElements[l].push(new Array(dim))
-    }
-    return resultElements
-}
-
-let dim = 4;
-// Function to get cofactor of
-// A[p][q] in temp[][]. n is current
-// dimension of A[][]
-function getCofactor(A,temp,p,q,n)
-{
-    let i = 0, j = 0;
-
-    // Looping for each element of the matrix
-    for (let row = 0; row < n; row++)
-    {
-        for (let col = 0; col < n; col++)
-        {
-            // Copying into temporary matrix only those element
-            // which are not in given row and column
-            if (row != p && col != q)
-            {
-                temp[i][j++] = A[row][col];
-
-                // Row is filled, so increase row index and
-                // reset col index
-                if (j == n - 1)
-                {
-                    j = 0;
-                    i++;
-                }
-            }
-        }
-    }
-}
-
-
-
-// Function to get adjoint of A[dim][dim] in adj[dim][dim].
-function  adjoint(elements)
-{
-    let dim = elements.size;
-    if (!isMatrixSquare(elements)) {
-        throw new DimensionError("Matrix is not square")
-    }
-
-    let adj = getEmptyMatrixWithDimension(dim, dim)
-
-    if (dim == 1) {
-        adj[0][0] = 1;
-        return;
-    }
-
-    // temp is used to store cofactors of elements[][]
-    let sign = 1;
-    let temp = new Array(dim);
-    for(let i=0;i<dim;i++) {
-        temp[i]=new Array(dim);
-    }
-
-    for (let i = 0; i < dim; i++) {
-        for (let j = 0; j < dim; j++) {
-            // Get cofactor of elements[i][j]
-            getCofactor(elements, temp, i, j, dim);
-
-            // sign of adj[j][i] positive if sum of row
-            // and column indexes is even.
-            sign = ((i + j) % 2 == 0)? 1: -1;
-
-            // Interchanging rows and columns to get the
-            // transpose of the cofactor matrix
-            adj[j][i] = (sign)*(determinant(temp, dim-1));
-        }
-    }
-
-    return adj
 }
 
 function getDeterminant (elements) {

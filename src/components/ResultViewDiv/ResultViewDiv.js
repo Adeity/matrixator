@@ -1,5 +1,3 @@
-import Fieldset from "../Buttons/Fieldset";
-import {useState, useEffect} from "react";
 import Matrix from "../Matrix";
 import React from "react";
 
@@ -19,51 +17,6 @@ class ResultViewDiv extends React.Component {
             return (<Matrix elements = {resultMatrix} disabled = {true} additionalStyle = {"result"} />)
         }
     };
-
-    // expressionToView(){
-    //     //  AB operations are: A x B, A + B, A - B
-    //     //  S (single operations are:): det(A), det(B), T(A), T(B),...
-    //     //  Syntax of expression text:
-    //     //    AB operation: A x B
-    //     //    AB operation: A + B
-    //     //    S operation: det A
-    //     //    S operation: T B
-    //     //    S operation : inv A
-    //     //    S operation:  inv B
-    //     var result = []
-    //     console.log("Reading " + this.props.expressionText)
-    //     for (let i = 0; i < this.props.expressionText.length; i++) {
-    //         const symbol = this.props.expressionText[i]
-    //
-    //         if (symbol === " ") {
-    //             continue
-    //         }
-    //
-    //         console.log("Current symbol:" + symbol)
-    //
-    //         if (this.isOperation(symbol)) {
-    //             console.log("Symbol is operation")
-    //             result.push(symbol)
-    //         } else {
-    //             //  this can be done only if defined matrices are limited to 2 matrices maximum
-    //             let matrix = null
-    //             if (symbol === "A") {
-    //                 matrix = this.props.matrixGetters.getMatrixA()
-    //             } else if (symbol === "B") {
-    //                 matrix = this.props.matrixGetters.getMatrixB()
-    //             }
-    //             if (matrix !== null) {
-    //                 console.log("Matrix found")
-    //                 result.push(<Matrix key = {symbol} elements = {matrix.matrixElements} disabled = {true} />)
-    //             }
-    //             else {
-    //                 console.log("Matrix is null")
-    //             }
-    //         };
-    //     };
-    //     console.log("Result of resultToView: " + result)
-    //     return result;
-    // }
 
     buildABExpression(operand) {
         let result = []
@@ -105,7 +58,6 @@ class ResultViewDiv extends React.Component {
         //    S operation: T B
         //    S operation: inv A
         //    S operation:  inv B
-        let result = []
         let input = this.props.expressionText.split(' ')
 
         let operationType = input[0]
