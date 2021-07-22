@@ -33,8 +33,8 @@ function App() {
       };
 
   const [applicationData, setApplicationData] = useState(initialMatrixDefinitions); //  defined matrices state
-  const [expressionText, setExpressionText] = useState("A x B"); //  defined matrices state
-  const [resultMatrix, setResultMatrix] = useState([[1, 2],[1, 2]]) //  result state
+  const [expressionText, setExpressionText] = useState("I"); //  defined matrices state
+  const [resultMatrix, setResultMatrix] = useState([[]]) //  result state
   const [parseError, setParseError] = useState("")
 
 

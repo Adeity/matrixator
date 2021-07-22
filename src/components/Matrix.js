@@ -9,7 +9,7 @@ function Matrix (props) {
         <div>
             {
                 row.map((element, indexCol) =>
-                    <input onChange={(e) => props.functions.changeElementInMatrix(props.id, indexRow, indexCol, e.target.value)} key = {indexRow+indexCol} defaultValue={element}  disabled={disabled} className={"matrix-element"}>
+                    <input onChange={(e) => props.functions.changeElementInMatrix(props.id, indexRow, indexCol, e.target.value)} key = {indexRow+indexCol} defaultValue={element}  disabled={disabled} className={"matrix-element " + props.additionalStyle}>
                     </input>
                 )
             }

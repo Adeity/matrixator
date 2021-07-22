@@ -16,7 +16,7 @@ class ResultViewDiv extends React.Component {
             return result;
         }
         else {
-            return (<Matrix elements = {resultMatrix} disabled = {true} />)
+            return (<Matrix elements = {resultMatrix} disabled = {true} additionalStyle = {"result"} />)
         }
     };
 
@@ -119,7 +119,7 @@ class ResultViewDiv extends React.Component {
             return this.buildSexpression(operand, matrixName)
         }
         else {
-            return null
+            return "Choose an operation to see result"
         }
     }
 
@@ -147,7 +147,7 @@ class ResultViewDiv extends React.Component {
         }
         return (
             <div>
-                <h2>Result</h2>
+                <h4>Result</h4>
                 {output}
             </div>
         )

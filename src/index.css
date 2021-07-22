@@ -34,3 +34,16 @@ mjx-container[jax="CHTML"][display="true"] {
   display: flex;
   align-items: center;
 }
+
+header {
+  background: azure;
+}
+
+.definition-section,
+.result-section {
+  padding: .75rem
+}
+
+.result {
+  width: fit-content;
+}

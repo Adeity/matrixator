@@ -44,7 +44,7 @@ function DefinitionSection(props){
 
     return(
         <div className={"definition-section"}>
-            <h1>Define matrices</h1>
+            <h4>Define matrices</h4>
             <div className={"d-flex justify-content-center"}>
                 {matrixA}
                 <div className={"d-flex flex-wrap align-items-center"}>
