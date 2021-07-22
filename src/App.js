@@ -47,31 +47,59 @@ function App() {
   const {dotProduct} = calculations
 
   const addition = function () {
-    calculate("", add, "A * B")
+    calculate(
+        "",
+        add,
+        buildExpressionText("AB", "+", "")
+    )
   }
 
   const subtraction = function () {
-    calculate("", subtract, "A * B")
+    calculate(
+        "",
+        subtract,
+        buildExpressionText("AB", "-", "")
+    )
   }
 
   const calculateDot = function () {
-    calculate("", dotProduct, "A dot B")
+    calculate(
+        "",
+        dotProduct,
+        buildExpressionText("AB", "dot", "")
+    )
   }
 
   const multiplication = function () {
-    calculate("", multiplyMatrices, "A * B")
+    calculate(
+        "",
+        multiplyMatrices,
+        buildExpressionText("AB", "*", "")
+    )
   }
 
   const inverseMatrix = function (matrixName) {
-    calculate(matrixName, inverse, "inverse " + matrixName)
+    calculate(
+        matrixName,
+        inverse,
+        buildExpressionText("S", "inv", matrixName)
+    )
   }
 
   const calculateDeterminant = function (matrixName) {
-    calculate(matrixName, determinant, "determinant ("+matrixName+")")
+    calculate(
+        matrixName,
+        determinant,
+        buildExpressionText("S", "det", matrixName)
+    )
   }
 
   const transposeMatrix = function(matrixName) {
-    calculate(matrixName, transpose, "transpose ("+matrixName+")")
+    calculate(
+        matrixName,
+        transpose,
+        buildExpressionText("S", "T", matrixName)
+    )
   }
 
   const calculate = function (matrixName, callbackFce, expressionText) {
@@ -95,6 +123,33 @@ function App() {
       setResultMatrix([[]])
       setExpressionText("")
     }
+  }
+
+  //  AB operations are: A x B, A + B, A - B
+  //  S (single operations are:): det(A), det(B), T(A), T(B),...
+  //  Syntax of expression text:
+  //    AB operation: x
+  //    AB operation: +
+  //    S operation: det A
+  //    S operation: T B
+  //    S operation: inv A
+  //    S operation:  inv B
+  const buildExpressionText = function(typeOfOperation, operand, matrixName) {
+    var res = ""
+    if (typeOfOperation === "AB") {
+       res += "AB operation: "
+       res += operand
+    }
+    else if (typeOfOperation === "S") {
+      res += "S operation: "
+      res += operand
+      res += " "
+      res += matrixName
+    }
+    else {
+      return
+    }
+    return res
   }
 
   const calculationsList = {

@@ -18,11 +18,11 @@ function calculateExpression(exprText) {
 }
 
 function haveSameDimensions(elements1, elements2) {
-    let numOfRows1 = elements1.size
-    let numOfRows2 = elements2.size
+    let numOfRows1 = elements1.length
+    let numOfRows2 = elements2.length
 
-    let numOfCols1 = elements1[0].size
-    let numOfCols2 = elements2[0].size
+    let numOfCols1 = elements1[0].length
+    let numOfCols2 = elements2[0].length
 
     return (numOfRows1 === numOfRows2)
             &&
