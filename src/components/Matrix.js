@@ -1,4 +1,5 @@
-
+import {FormText} from "react-bootstrap";
+import {Form} from "react-bootstrap";
 function Matrix (props) {
     let disabled = (props.disabled === true) ? "disabled" : "";
 
@@ -6,11 +7,11 @@ function Matrix (props) {
     console.log(props.elements)
 
     const elements = props.elements.map((row, indexRow) =>
-        <div key={props.id + "" + indexRow}>
+        <div key={props.id + "" + indexRow} className={"matrix-row"}>
             {
                 row.map((element, indexCol) =>
-                    <input onChange={(e) => props.functions.changeElementInMatrix(props.id, indexRow, indexCol, e.target.value)} key = {indexRow+""+indexCol+props.id} defaultValue={element}  disabled={disabled} className={"matrix-element " + props.additionalStyle}>
-                    </input>
+                    <Form.Control onChange={(e) => props.functions.changeElementInMatrix(props.id, indexRow, indexCol, e.target.value)} key = {indexRow+""+indexCol+props.id} defaultValue={element}  disabled={disabled} className={"matrix-element " + props.additionalStyle}>
+                    </Form.Control>
                 )
             }
         </div>

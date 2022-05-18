@@ -2,6 +2,7 @@ import SingleMatrixDefinition from '../SingleMatrixDefinition'
 import DimensionSettings from '../DimensionSettings'
 import Matrix from '../Matrix'
 import Button from "../Buttons/Button";
+import {ButtonGroup} from "react-bootstrap";
 
 
 function DefinitionSection(props){
@@ -45,15 +46,17 @@ function DefinitionSection(props){
     return(
         <div className={"definition-section"}>
             <h4>Define matrices</h4>
-            <div className={"d-flex justify-content-center"}>
+            <div className={"definition-section-matrices"}>
                 {matrixA}
-                <div className={"d-flex flex-wrap align-items-center"}>
+                {matrixB}
+            </div>
+            <div className={"d-flex flex-wrap align-items-center justify-content-center mt-3"}>
+                <ButtonGroup>
                     <Button value = {"+"} handleClick = {props.calculations.addition}/>
                     <Button value = {"-"} handleClick = {props.calculations.subtraction}/>
                     <Button value = {"*"} handleClick = {props.calculations.multiplication}/>
                     <Button value = {"dot"} handleClick = {props.calculations.calculateDot}/>
-                </div>
-                {matrixB}
+                </ButtonGroup>
             </div>
         </div>
     )

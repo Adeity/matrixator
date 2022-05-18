@@ -26,8 +26,19 @@ mjx-container[jax="CHTML"][display="true"] {
   display: inline-block!important;
 }
 
+.matrix-name {
+  font-weight: bold;
+}
+
+.dimension-button-group {
+  display: flex;
+  justify-content: center;
+}
+
 .matrix-element {
   width: 2rem;
+  display: initial;
+  padding: 0;
 }
 
 .result-view-div {
@@ -42,6 +53,28 @@ header {
 .definition-section,
 .result-section {
   padding: .75rem
+}
+
+.single-matrix-definition{
+  min-width: 15rem;
+}
+
+.matrix-elements {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.matrix-row {
+  display: flex;
+  justify-content: center;
+}
+
+
+
+.definition-section-matrices{
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .result {
